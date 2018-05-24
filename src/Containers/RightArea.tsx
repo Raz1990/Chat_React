@@ -4,17 +4,27 @@
 import * as React from 'react';
 
 //components imports
-import Toolbar from './Toolbar';
 import ConversationHistoryArea from './ConversationHistoryArea';
 import MessageInputArea from './MessageInputArea';
+import {User} from './../Classess/User';
+import StateStore from "../State/StateStore";
 
+interface IRightProps {
+}
 
-class RightArea extends React.Component {
+class RightArea extends React.Component<IRightProps,{}> {
+
+    currentUser : User;
+
+    constructor(props: IRightProps){
+        super(props);
+
+        this.currentUser = StateStore.getInstance().get('currentUser');
+    }
+
     public render() {
         return (
             <div className="right">
-                <Toolbar/>
-
                 <ConversationHistoryArea/>
 
                 <MessageInputArea/>

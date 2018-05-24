@@ -38,19 +38,22 @@ html, body, #root, #toor {
 }
 
 .left {
-  width: 25%;
+  /*width: 25%;*/
   border-right: 1px solid black;
 }
 
 .right {
-  width: 75%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+    background-image: url("images/whatsappBackground.png");
 }
 
-.toolbar {
-  border-bottom: 1px solid black;
-  padding: 0.5em;
+.header {
+    border-bottom: 1px solid black;
+    padding: 0.5em;
+    color:deepskyblue;
+    background-color: #057505;
 }
 
 .content {
@@ -69,10 +72,19 @@ html, body, #root, #toor {
     display: flex;
     flex-direction: row;
     height: 2em;
+    padding: 5px;
+    background-color: #7cbba6;
+    border-radius: 50px;
 }
 
 .InputArea input{
     flex-grow: 1;
+    border-radius: 50px;
+}
+
+.input {
+    border-radius: 50px;
+    direction: rtl;
 }
 
 .group {
@@ -89,4 +101,67 @@ html, body, #root, #toor {
 
 .active {
   background-color: ButtonHighlight;
+}
+
+.speechWrapper {
+    padding: 5px;
+}
+
+.wrapperNotMySpeech {
+    direction: rtl;
+}
+
+.speechBubble{
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 1em;
+    width: fit-content;
+}
+
+.mine{
+    background-color: palegreen;
+}
+
+.notMine{
+    background-color: ghostwhite;
+    text-align:right;
+}
+
+.English {
+    text-align: left;
+}
+
+.otherLanguage {
+    text-align: right;
+    direction: rtl;
+}
+
+.messageTime {
+    text-align: left;
+    font-size: 8px;
+    color:grey;
+}
+
+.dayHeadLine {
+    text-align: center;
+    background-color: #46d7ecba;
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 40%;
+    margin-left: 40%;
+}
+
+.speechBubble img {
+    width: 50px;
+}
+
+.emptyInput {
+    color:-moz-buttondefault;
+    background-color: -moz-buttondefault;
+}
+
+.fullInput {
+    color:white;
+    background-color: green;
 }
