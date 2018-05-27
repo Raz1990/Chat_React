@@ -25,11 +25,12 @@ class Header extends React.Component<IHeaderPROPS,{}> {
         let text = this.currentUser.getName();
         if (this.inChatWith) {
             if ( this.inChatWith.getType() == 'user' ) {
-                text += ' chatting with ' + this.inChatWith.getName();
+                text += ' chatting with ';
             }
             else {
-                text += ' chatting in group ' + this.inChatWith.getName();
+                text += ' chatting in group ';
             }
+            text += this.inChatWith.getName();
         }
 
         return (

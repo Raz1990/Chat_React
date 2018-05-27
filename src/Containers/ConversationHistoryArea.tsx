@@ -6,11 +6,13 @@ import StateStore from './../State/StateStore'
 import SpeechBubbleWrapper from './SpeechBubbleWrapper';
 import {User} from './../Classess/User';
 import IChatEntity from "../Interfaces/ChatEntity";
+import {db} from './../Database/db';
 
 interface IConvoProps {
 }
 
 interface IConvoState {
+    speechBubbles : ISpeechBubble[]
 }
 
 interface ISpeechBubble {
@@ -23,19 +25,21 @@ interface ISpeechBubble {
 class ConversationHistoryArea extends React.Component <IConvoProps,IConvoState> {
 
     stateStore = StateStore.getInstance();
-    speechBubbles: ISpeechBubble[];
     currentUser: User;
 
     constructor(props: IConvoProps){
         super(props);
 
-        this.speechBubbles = this.stateStore.get('speechBubbles');
-        this.currentUser = StateStore.getInstance().get('currentUser');
+        this.state = {
+            speechBubbles : db.getMessageHistory(db.getAllUsers()[0],db.getAllUsers()[1]),
+        };
+
+        this.currentUser = this.stateStore.get('currentUser');
     }
 
     public render() {
 
-        let bubbles = this.speechBubbles.map((bubble:any, idx) =>
+        let bubbles = this.state.speechBubbles.map((bubble:any, idx) =>
             (
                 <SpeechBubbleWrapper
                           key={idx}

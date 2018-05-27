@@ -19,9 +19,12 @@ class StateStore implements IStateSore{
         allGroups: this.groups,
         allEntities: this.entities,
         currentUser: this.users[0],
-        speechBubbles: db.createMockUpBubbles(),
         inChatWith: null
     };
+
+    subscribe(){
+
+    }
 
     set(key:string, val:any){
         this.state[key] = val;

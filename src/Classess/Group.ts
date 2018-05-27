@@ -1,15 +1,15 @@
-import IChatEntity, {default as ICanChat} from './../Interfaces/ChatEntity';
+import IChatEntity from './../Interfaces/ChatEntity';
 import {User} from './../Classess/User';
 export {Group};
 
 class Group implements IChatEntity{
 
-    constructor(private group_name: string, private members: IChatEntity[] = [], private items : ICanChat[]) {
+    constructor(private group_name: string, private members: IChatEntity[] = []) {
 
     }
 
     getItems() {
-        return this.items;
+        return this.members;
     }
 
     getType(): string {

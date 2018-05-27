@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as moment from 'moment';
-import StateStore from './../State/StateStore'
+//import * as moment from 'moment';
+//import StateStore from './../State/StateStore'
 
 //components imports
 import MyButton from './../Components/MyButton';
@@ -10,6 +10,14 @@ interface IMessageInputAreaState {
 }
 
 class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
+
+    constructor(props: {}){
+        super(props);
+
+        this.state = {
+            message: ''
+        };
+    }
 
     updateMessage = (e: any) => {
 
@@ -21,28 +29,26 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
         });
     };
 
-    constructor(props: {}){
-        super(props);
-
-        this.state = {
-            message: ''
-        };
-    }
-
     addMessageToBoard = () => {
 
         if (!this.state.message){
             return;
         }
 
-        let currentState = StateStore.getInstance();
-        let currentUser = currentState.get('currentUser');
-        let receiver = currentState.get('inChatWith');
+        //let currentState = StateStore.getInstance();
+        //let currentUser = currentState.get('currentUser');
+        //let receiver = currentState.get('inChatWith');
 
+        //get the bubbles from ANOTHER MODULE, NOT IN THE TREE
+
+        /*
         let bubbles = currentState.get('speechBubbles');
         bubbles.push({content: this.state.message, sender: currentUser, receiver: receiver, timeSent: moment().format("HH:mm")});
 
         currentState.set('speechBubbles',bubbles);
+
+        this.forceUpdate();
+        */
 
     };
 
