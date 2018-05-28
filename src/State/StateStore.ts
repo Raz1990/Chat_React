@@ -8,6 +8,12 @@ interface IStateSore {
 
 class StateStore implements IStateSore{
 
+    constructor(){
+        this.listeners = [];
+    }
+
+    listeners: Function[];
+
     users = db.getAllUsers();
 
     groups = db.getAllGroups();
@@ -18,20 +24,27 @@ class StateStore implements IStateSore{
         allUsers: this.users,
         allGroups: this.groups,
         allEntities: this.entities,
-        currentUser: this.users[0],
+        currentUser: null,
         inChatWith: null
     };
 
-    subscribe(){
-
+    subscribe(listener: any){
+        this.listeners.push(listener);
     }
 
     set(key:string, val:any){
         this.state[key] = val;
+        this.onStoreChanged();
     }
 
     get(key:string){
         return this.state[key] || null;
+    }
+
+    onStoreChanged(){
+        for(const listener of this.listeners){
+            listener();
+        }
     }
 
     static instance: StateStore;

@@ -1,11 +1,16 @@
-import {User} from './../Classess/User';
-import {Group} from './../Classess/Group';
-import * as moment from 'moment';
 import ICanChat from "../Interfaces/ChatEntity";
-// import ICanChat from "../Interfaces/ChatEntity";
+import {TempData} from "../Classess/TempData";
+
 export {db};
 
 class db {
+
+    //get some mock up data, as if from a real db
+    static User1 = TempData.User1;
+    static User2 = TempData.User2;
+
+    static users = TempData.allUsers;
+    static groups = TempData.allGroups;
 
     constructor(){
 
@@ -13,92 +18,73 @@ class db {
 
     static getAllEntities() {
 
-        const users = db.getAllUsers();
-
-        const groups = db.getAllGroups();
-
         let entityArray : any[] = [];
 
         //entityArray = entityArray.concat(users).concat(groups);
 
-        entityArray = entityArray.concat(groups).concat(users);
+        entityArray = entityArray.concat(db.groups).concat(db.users);
 
         return entityArray;
 
     }
 
     static getAllUsers(){
-        return [
-            new User('Raz', 'rrr', 27),
-            new User('Moshe', 'holy_moses', 28),
-            new User('Itay', 'CrackingCracks9001', 36),
-        ];
+        return db.users;
     }
 
     static getAllGroups(){
+        return db.groups;
+    }
 
-        let group1 = new Group('Best Friends', [db.getAllUsers()[2]]);
+    static getSingleUser(userName: string) {
+        return db.users.find(o => o.getName() === userName);
+    }
 
-        return [
-            new Group('Friends', [group1, db.getAllUsers()[1]]),
-        ];
+    static getChatEntity(name: string) {
+        let entity;
+        entity = db.users.find(o => o.getName() === name);
+        if (!entity){
+            entity = db.users.find(o => o.getName() === name);
+        }
+
+        return entity;
+    }
+
+    static convoRazWithMoshe = TempData.convoRazWithMoshe;
+
+    //static convoMosheWithRaz = TempData.convoMosheWithRaz;
+
+    static addMessageToAConversation(sender: ICanChat, reciever: ICanChat, content: string, time: string){
+
+        if (sender.getName() == TempData.User1.getName() && reciever.getName() == TempData.User2.getName()){
+            db.convoRazWithMoshe.push(
+                TempData.newBubble(sender, reciever, content, time),
+                TempData.newBubble(reciever, sender, 'פולו!', time)
+            );
+        }
+
+        if (sender.getName() == TempData.User2.getName() && reciever.getName() == TempData.User1.getName()) {
+            db.convoRazWithMoshe.push(
+                TempData.newBubble(reciever, sender, content, time),
+                TempData.newBubble(sender, reciever, 'מרקו!', time)
+            );
+        }
     }
 
     static getMessageHistory(sender: ICanChat, reciever: ICanChat) {
 
-        let User1 = db.getAllUsers()[0];
-        let User2 = db.getAllUsers()[1];
-
-        if (sender.getName() == User1.getName()){
-            return [
-                {content: 'שלום', sender: User1, receiver: User2, timeSent: moment().format("HH:mm")},
-                {content: 'Hi', sender: User2, receiver: User1, timeSent: moment().format("HH:mm")},
-                {content: 'מה נשמע?', sender: User1, receiver: User2, timeSent: moment().format("HH:mm")},
-                {
-                    content: 'don\'t talk to me and my boi ever again',
-                    sender: User2,
-                    receiver: User1,
-                    timeSent: moment().format("HH:mm")
-                },
-                {
-                    content: 'google.com',
-                    sender: User2,
-                    receiver: User1,
-                    timeSent: moment().format("HH:mm")
-                },
-                {
-                    content: 'dubJi.jfif',
-                    sender: User2,
-                    receiver: User1,
-                    timeSent: moment().format("HH:mm")
-                },
-            ];
+        if (!sender || !reciever) {
+            return [];
         }
 
-        if (sender.getName() == User2.getName()) {
-            return [
-                {content: 'שלום', sender: User2, receiver: User1, timeSent: moment().format("HH:mm")},
-                {content: 'Hi', sender: User1, receiver: User2, timeSent: moment().format("HH:mm")},
-                {content: 'מה נשמע?', sender: User2, receiver: User1, timeSent: moment().format("HH:mm")},
-                {
-                    content: 'don\'t talk to me and my boi ever again',
-                    sender: User1,
-                    receiver: User2,
-                    timeSent: moment().format("HH:mm")
-                },
-                {
-                    content: 'google.com',
-                    sender: User1,
-                    receiver: User2,
-                    timeSent: moment().format("HH:mm")
-                },
-                {
-                    content: 'dubJi.jfif',
-                    sender: User1,
-                    receiver: User2,
-                    timeSent: moment().format("HH:mm")
-                },
-            ];
+        if (sender.getName() == db.User1.getName() && reciever.getName() == db.User2.getName()
+            ||
+            sender.getName() == db.User2.getName() && reciever.getName() == db.User1.getName()){
+            return db.convoRazWithMoshe;
+        }
+
+        if (sender.getName() == db.User2.getName() && reciever.getName() == db.User1.getName()) {
+            //return db.convoMosheWithRaz;
         }
 
         return [];

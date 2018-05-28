@@ -5,8 +5,8 @@ import '../App.css';
 import {db} from './../Database/db';
 import ChatEntitiesTree from './ChatEntitiesTree';
 import RightArea from './RightArea';
-import {User} from './../Classess/User';
 import StateStore from "../State/StateStore";
+import ICanChat from "../Interfaces/ChatEntity";
 
 
 interface IAppProps {
@@ -14,7 +14,7 @@ interface IAppProps {
 }
 
 interface IAppState {
-    currentUser: User
+    currentUser: ICanChat
 }
 
 class App extends React.Component<IAppProps,IAppState> {
@@ -28,13 +28,14 @@ class App extends React.Component<IAppProps,IAppState> {
             currentUser: users[0],
         };
 
-        StateStore.getInstance().subscribe();
+        StateStore.getInstance().set('currentUser', this.state.currentUser);
 
-        StateStore.getInstance().set('inChatWith',users[1]);
-    }
+        StateStore.getInstance().subscribe(()=>{
+            this.forceUpdate();
+        });
 
-    public force(){
-        this.forceUpdate();
+
+        //StateStore.getInstance().set('inChatWith',users[1]);
     }
 
     public render() {

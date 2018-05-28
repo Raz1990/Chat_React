@@ -1,9 +1,10 @@
 import * as React from 'react';
-//import * as moment from 'moment';
-//import StateStore from './../State/StateStore'
+import * as moment from 'moment';
+import StateStore from './../State/StateStore'
 
 //components imports
 import MyButton from './../Components/MyButton';
+import {db} from './../Database/db';
 
 interface IMessageInputAreaState {
     message: string
@@ -35,20 +36,13 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
             return;
         }
 
-        //let currentState = StateStore.getInstance();
-        //let currentUser = currentState.get('currentUser');
-        //let receiver = currentState.get('inChatWith');
+        let currentState = StateStore.getInstance();
+        let currentUser = currentState.get('currentUser');
+        let receiver = currentState.get('inChatWith');
 
-        //get the bubbles from ANOTHER MODULE, NOT IN THE TREE
+        db.addMessageToAConversation(currentUser,receiver,this.state.message ,moment().format("HH:mm"));
 
-        /*
-        let bubbles = currentState.get('speechBubbles');
-        bubbles.push({content: this.state.message, sender: currentUser, receiver: receiver, timeSent: moment().format("HH:mm")});
-
-        currentState.set('speechBubbles',bubbles);
-
-        this.forceUpdate();
-        */
+        StateStore.getInstance().onStoreChanged();
 
     };
 
@@ -68,7 +62,7 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
 
         return (
             <div className="InputArea">
-                <input id={'message'} type={'text'} placeholder={'הקלד הודעה כאן...'} className={'input'} onChange={this.updateMessage}/>
+                <input type={'text'} placeholder={'הקלד הודעה כאן...'} className={'input'} onChange={this.updateMessage}/>
                 <MyButton callbackFunc={this.addMessageToBoard} contentSTR={'Send'} className={btnClass} clickAble={clickable}/>
             </div>
         );

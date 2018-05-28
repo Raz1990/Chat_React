@@ -17,7 +17,7 @@ interface IConvoState {
 
 interface ISpeechBubble {
     content: string,
-    sender: User,
+    sender: IChatEntity,
     receiver: IChatEntity,
     timeSent: string,
 }
@@ -30,11 +30,17 @@ class ConversationHistoryArea extends React.Component <IConvoProps,IConvoState> 
     constructor(props: IConvoProps){
         super(props);
 
+        this.currentUser = this.stateStore.get('currentUser');
+
         this.state = {
-            speechBubbles : db.getMessageHistory(db.getAllUsers()[0],db.getAllUsers()[1]),
+            speechBubbles : db.getMessageHistory(this.currentUser,this.stateStore.get('inChatWith')),
         };
 
-        this.currentUser = this.stateStore.get('currentUser');
+        StateStore.getInstance().subscribe(()=>{
+            this.setState({
+                speechBubbles : db.getMessageHistory(this.currentUser,this.stateStore.get('inChatWith')),
+            });
+        });
     }
 
     public render() {

@@ -1,3 +1,6 @@
+import StateStore from "../State/StateStore";
+import {db} from './../Database/db';
+
 export class MyFunctions {
 
     //gets an element and gives it the "active" class
@@ -16,6 +19,11 @@ export class MyFunctions {
         }
         //add the active status to the selected element
         workingElement.classList.toggle('active');
+
+        let stateStore = StateStore.getInstance();
+        let chattingWith = db.getChatEntity(workingElement.innerText);
+
+        stateStore.set('inChatWith', chattingWith);
     }
 
     //gets an element and expands / collapses all of its children (if have any)

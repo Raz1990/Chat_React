@@ -30,6 +30,10 @@ class ChatEntitiesTree extends React.Component<ITreeProps,ITreeState> {
             entities : StateStore.getInstance().get('allEntities')
         };
 
+        StateStore.getInstance().subscribe(()=>{
+            this.forceUpdate();
+        });
+
     }
 
     singleLiCreate(item : ICanChat, idValue? : number, childElement? : any, parentLiClassName? : string, repeatSpaces? : number){
