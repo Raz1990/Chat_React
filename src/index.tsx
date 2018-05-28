@@ -12,7 +12,7 @@ ReactDOM.render(
 
 (function () {
     let myFuncs = new MyFunctions();
-    myFuncs.init();
+    myFuncs.setUpKeysEvents();
 })();
 
 registerServiceWorker();

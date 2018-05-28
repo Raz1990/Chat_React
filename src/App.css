@@ -38,7 +38,7 @@ html, body, #root, #toor {
 }
 
 .left {
-  width: 25%;
+  width: 50%;
   border-right: 1px solid black;
 }
 
@@ -47,6 +47,12 @@ html, body, #root, #toor {
   display: flex;
   flex-direction: column;
     background-image: url("images/whatsappBackground.png");
+}
+
+h1.RightArea-h1{
+    text-align: center;
+    position: relative;
+    top: 30%;
 }
 
 .header {
@@ -86,6 +92,10 @@ html, body, #root, #toor {
 .input {
     border-radius: 50px;
     direction: rtl;
+}
+
+li {
+    user-select: none;
 }
 
 .group {

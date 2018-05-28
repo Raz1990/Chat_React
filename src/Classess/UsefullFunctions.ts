@@ -88,7 +88,7 @@ export class MyFunctions {
         return children;
     }
 
-    init(){
+    setUpKeysEvents(){
         document.body.addEventListener('keyup', this.decideAction);
     }
 
