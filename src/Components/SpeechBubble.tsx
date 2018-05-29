@@ -2,14 +2,14 @@
 
 import * as React from 'react';
 import {User} from './../Classess/User';
-import IChatEntity from './../Interfaces/ChatEntity';
+import ICanEntity from './../Interfaces/ChatEntity';
 import SpeechBubbleContent from './../Components/SpeechBubbleContent';
 import StateStore from "../State/StateStore";
 
 interface ISpeechBubblePROPS {
     content: string,
     sender: User,
-    receiver: IChatEntity,
+    receiver: ICanEntity,
     timeSent: string,
 }
 

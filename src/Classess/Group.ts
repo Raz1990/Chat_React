@@ -4,8 +4,16 @@ export {Group};
 
 class Group implements IChatEntity{
 
-    constructor(private group_name: string, private members: IChatEntity[] = []) {
+    constructor(private group_name: string, private members: IChatEntity[] = [], private parent?: Group) {
 
+    }
+
+    setParentGroup(parent : Group){
+        this.parent = parent;
+    }
+
+    getParentGroup(){
+        return this.parent;
     }
 
     getItems() {
@@ -34,8 +42,21 @@ class Group implements IChatEntity{
         return this.members;
     }
 
+    addNewMember(newMember: IChatEntity){
+        const type = newMember.getType();
+        if (type=== 'group') {
+            this.addGroupToGroup(newMember as Group);
+        }
+        else {
+            this.addUserToGroup(newMember as User);
+        }
+    }
+
+    addGroupToGroup(newGroup: Group){
+        this.members.push(newGroup);
+    }
+
     addUserToGroup(newUser: User){
-        console.log(newUser.getName() + 'to be added');
         this.members.push(newUser);
     }
 

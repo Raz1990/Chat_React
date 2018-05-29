@@ -1,14 +1,18 @@
 import ICanChat from "../Interfaces/ChatEntity";
 import {TempData} from "../Classess/TempData";
+//import StateStore from "../State/StateStore";
 
 export {db};
 
 class db {
 
     //get some mock up data, as if from a real db
-    static User1 = TempData.User1;
-    static User2 = TempData.User2;
-    static User3 = TempData.User3;
+    static raz = TempData.User1;
+    static moshe = TempData.User2;
+    static itay = TempData.User3;
+    static evgeni = TempData.User4;
+    static ori = TempData.User5;
+    static yuval = TempData.User6;
 
     static users = TempData.allUsers;
     static groups = TempData.allGroups;
@@ -55,22 +59,29 @@ class db {
         return entity;
     }
 
-    static convoRazWithMoshe = TempData.convoRazWithMoshe;
-
-    static convoRazWithItay = TempData.convoRazWithItay;
-
-    static convoRazWithFriends = TempData.convoRazWithFriends;
+    // static convoRazWithMoshe = TempData.convoRazWithMoshe;
+    // static convoRazWithItay = TempData.convoRazWithItay;
+    // static convoRazWithFriends = TempData.convoRazWithFriends;
+    // static convoRazWithRaz = TempData.convoRazWithRaz;
+    // static convoRazWithYuval = TempData.convoRazWithYuval;
+    // static convoRazWithOri = TempData.convoRazWithOri;
+    // static convoRazWithEvgeni = TempData.convoRazWithEvgeni;
 
     static addMessageToAConversation(sender: ICanChat, receiver: ICanChat, content: string, time: string){
-
-        switch (sender.getName()) {
+        /*switch (sender.getName()) {
             //raz is the sender
-            case db.User1.getName():
-
+            case db.raz.getName():
                 switch (receiver.getName()) {
+                    //raz is the receiver
+                    case db.raz.getName():
+                        db.convoRazWithRaz.push(
+                            TempData.newBubble(sender, receiver, content, time),
+                            TempData.newBubble(receiver, sender, 'מה הקטע לדבר עם עצמך?', time)
+                        );
+                        break;
 
                     //moshe is receiver
-                    case db.User2.getName():
+                    case db.moshe.getName():
                         db.convoRazWithMoshe.push(
                             TempData.newBubble(sender, receiver, content, time),
                             TempData.newBubble(receiver, sender, 'פולו!', time)
@@ -78,7 +89,7 @@ class db {
                     break;
 
                     //itay is receiver
-                    case db.User3.getName():
+                    case db.itay.getName():
                         db.convoRazWithItay.push(
                             TempData.newBubble(sender, receiver, content, time),
                             TempData.newBubble(receiver, sender, 'עכשיו תוסיף עוד 100 ש"ח', time)
@@ -91,17 +102,30 @@ class db {
                         db.convoRazWithFriends.push(
                             TempData.newBubble(sender, receiver, content, time)
                         );
+
+                        setTimeout(()=>{
+                            db.convoRazWithFriends.push(
+                                TempData.newBubble(db.itay, receiver, db.itay.getName() + ': עזבו, יותר קראק בשבילי', time)
+                            );
+                            StateStore.getInstance().onStoreChanged();
+                        },1500);
                     break;
+
+                    //Ori is receiver
+                    case db.ori.getName():
+                        db.convoRazWithOri.push(
+                            TempData.newBubble(sender, receiver, content, time),
+                            TempData.newBubble(receiver, sender, 'מגניב!', time)
+                        );
+                        break;
                 }
                 break;
 
             //moshe is the sender
-            case TempData.User2.getName():
-
+            case db.moshe.getName():
                 switch (receiver.getName()) {
-
                     //raz is receiver
-                    case TempData.User1.getName():
+                    case db.raz.getName():
                         db.convoRazWithMoshe.push(
                             TempData.newBubble(receiver, sender, content, time),
                             TempData.newBubble(sender, receiver, 'מרקו!', time)
@@ -109,18 +133,16 @@ class db {
                         break;
 
                     //itay is receiver
-                    case TempData.User3.getName():
+                    case db.itay.getName():
                         break;
                 }
                 break;
 
             //itay is the sender
-            case TempData.User3.getName():
-
+            case db.itay.getName():
                 switch (receiver.getName()) {
-
                     //raz is receiver
-                    case TempData.User1.getName():
+                    case db.raz.getName():
                         db.convoRazWithItay.push(
                             TempData.newBubble(receiver, sender, content, time),
                             TempData.newBubble(sender, receiver, 'יקר מדי', time)
@@ -128,39 +150,45 @@ class db {
                         break;
 
                     //moshe is receiver
-                    case TempData.User2.getName():
+                    case db.moshe.getName():
                         break;
                 }
                 break;
         }
+        */
+        TempData.addConversation(sender, receiver, content, time,true);
     }
 
     static getMessageHistory(sender: ICanChat, receiver: ICanChat) {
-
+        /*
         if (!sender || !receiver) {
             return [];
         }
 
-        if (sender.getName() == db.User1.getName() && receiver.getName() == db.User2.getName()
+        if (sender.getName() == db.raz.getName() && receiver.getName() == db.raz.getName()){
+            return db.convoRazWithRaz;
+        }
+
+        if (sender.getName() == db.raz.getName() && receiver.getName() == db.moshe.getName()
             ||
-            sender.getName() == db.User2.getName() && receiver.getName() == db.User1.getName()){
+            sender.getName() == db.moshe.getName() && receiver.getName() == db.raz.getName()){
             return db.convoRazWithMoshe;
         }
 
-        if (sender.getName() == db.User1.getName() && receiver.getName() == db.User3.getName()
+        if (sender.getName() == db.raz.getName() && receiver.getName() == db.itay.getName()
             ||
-            sender.getName() == db.User3.getName() && receiver.getName() == db.User1.getName()){
+            sender.getName() == db.itay.getName() && receiver.getName() == db.raz.getName()){
             return db.convoRazWithItay;
         }
 
-        if (sender.getName() == db.User1.getName() && receiver.getName() == db.groups[0].getName()
+        if (sender.getName() == db.raz.getName() && receiver.getName() == db.groups[0].getName()
             ||
-            sender.getName() == db.User2.getName() && receiver.getName() == db.groups[0].getName()
+            sender.getName() == db.moshe.getName() && receiver.getName() == db.groups[0].getName()
             ||
-            sender.getName() == db.User3.getName() && receiver.getName() == db.groups[0].getName()){
+            sender.getName() == db.itay.getName() && receiver.getName() == db.groups[0].getName()){
             return db.convoRazWithFriends;
         }
-
-        return [];
+    */
+        return TempData.getConversation(sender,receiver);
     }
 }

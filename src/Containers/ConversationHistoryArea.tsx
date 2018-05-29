@@ -26,9 +26,12 @@ class ConversationHistoryArea extends React.Component <IConvoProps,IConvoState> 
 
     stateStore = StateStore.getInstance();
     currentUser: User;
+    speechBlock : any;
 
     constructor(props: IConvoProps){
         super(props);
+
+        this.speechBlock = React.createRef();
 
         this.currentUser = this.stateStore.get('currentUser');
 
@@ -42,6 +45,15 @@ class ConversationHistoryArea extends React.Component <IConvoProps,IConvoState> 
             });
         });
     }
+
+    componentDidMount() {
+        this.speechBlock.current.scrollTop = this.speechBlock.current.scrollHeight;
+    }
+
+    componentDidUpdate() {
+        this.speechBlock.current.scrollTop = this.speechBlock.current.scrollHeight;
+    }
+
 
     public render() {
 
@@ -57,9 +69,15 @@ class ConversationHistoryArea extends React.Component <IConvoProps,IConvoState> 
             )
             );
 
+        let h4Text = moment().format('MMMM Do YYYY');
+
+        if (bubbles.length < 1) {
+            h4Text = 'אין בושה - החל שיחה';
+        }
+
         return (
-            <div className="content">
-                <h4 className={'dayHeadLine'}> {moment().format('MMMM Do YYYY')} </h4>
+            <div className="content" ref={this.speechBlock}>
+                <h4 className={'dayHeadLine'}> {h4Text} </h4>
                 {bubbles}
             </div>
         );

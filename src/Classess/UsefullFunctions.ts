@@ -88,8 +88,8 @@ export class MyFunctions {
         return children;
     }
 
-    setUpKeysEvents(){
-        document.body.addEventListener('keyup', this.decideAction);
+    setUpKeysEvents(element: any){
+        element.addEventListener('keydown', this.decideAction);
     }
 
     decideAction = (event: any) => {
