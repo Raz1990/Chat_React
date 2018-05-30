@@ -62,7 +62,7 @@ export class TempData {
         //raz with itay
         TempData.addConversation(TempData.Raz, TempData.Itay, 'שלום', moment().add(time++, 's').format("HH:mm:ss"));
         TempData.addConversation(TempData.Itay, TempData.Raz, 'מה אתה רוצה?', moment().add(time++, 's').format("HH:mm:ss"));
-        TempData.addConversation(TempData.Raz, TempData.Itay, 'הבאת את החומר?', moment().add(time++, 's').format("HH:mm:ss"));
+        TempData.addConversation(TempData.Raz, TempData.Itay, 'יש לך חומר?', moment().add(time++, 's').format("HH:mm:ss"));
         TempData.addConversation(TempData.Itay, TempData.Raz, 'בוודאי. 500 ש"ח ל50 גרם.', moment().add(time++, 's').format("HH:mm:ss"));
         TempData.addConversation(TempData.Itay, TempData.Raz, 'crack.jpg', moment().add(time++, 's').format("HH:mm:ss"));
         TempData.addConversation(TempData.Itay, TempData.Raz, 'מזומן בלבד', moment().add(time++, 's').format("HH:mm:ss"));
@@ -127,12 +127,14 @@ export class TempData {
         switch (receiver) {
             case 'Raz':
                 return 'מה הקטע לדבר עם עצמך?';
-            case 'Ori':
-                return 'מגניב!';
             case 'Moshe':
                 return 'הכל חרטא ברטא תאמין לי';
             case 'Itay':
                 return 'עכשיו תוסיף עוד 100 ש"ח';
+            case 'Evgeni':
+                return 'יאללה, לאכול';
+            case 'Ori':
+                return 'מגניב!';
             case 'Yuval':
                 return 'עוגי שיגעוגי משגע ת\'עולם';
             case 'Friends':

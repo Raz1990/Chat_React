@@ -96,6 +96,7 @@ h1.RightArea-h1{
 .input {
     border-radius: 50px;
     direction: rtl;
+    outline: none;
 }
 
 li {
@@ -180,6 +181,11 @@ li {
 .fullInput {
     color:white;
     background-color: green;
+}
+
+
+.input.fullInput:hover{
+    background-color: lightgreen;
 }
 
 .user.childElement {

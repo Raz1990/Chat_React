@@ -1,22 +1,24 @@
 import * as React from 'react';
 
-interface IToolBarButtonPROPS {
+interface IMyButtonPROPS {
     contentSTR: string,
     className?: string,
     callbackFunc?: any
-    clickAble?: boolean
+    disabled: boolean
 }
 
-class Toolbar extends React.Component<IToolBarButtonPROPS,{}> {
-    constructor(props: IToolBarButtonPROPS){
-        super(props)
+class MyButton extends React.Component<IMyButtonPROPS,{}> {
+
+    constructor(props: IMyButtonPROPS){
+        super(props);
+
     }
 
     public render() {
         return (
-            <button onClick={this.props.callbackFunc} className={this.props.className} disabled={!this.props.clickAble}>{this.props.contentSTR}</button>
+            <button onClick={this.props.callbackFunc} className={this.props.className} disabled={this.props.disabled}>{this.props.contentSTR}</button>
         );
     }
 }
 
-export default Toolbar;
+export default MyButton;

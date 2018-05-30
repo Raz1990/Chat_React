@@ -41,7 +41,10 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
     };
 
     addMessageToBoard = () => {
-        if (!this.state.message){
+        if (this.state.message.trim() === ''){
+            this.setState({
+                message: ''
+            });
             return;
         }
 
@@ -49,6 +52,10 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
         let currentUser = currentState.get('currentUser');
         let receiver = currentState.get('inChatWith');
         let message = this.state.message;
+
+        if (message === ''){
+            return;
+        }
 
         if (receiver.getType() === 'group') {
             message = currentUser.getName() + ': ' + message;
@@ -65,12 +72,18 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
         }
     };
 
+    clearMessage = () => {
+        this.setState({
+            message: ''
+        });
+    };
+
     public render() {
 
         let btnClass = 'input ';
         let clickable = true;
 
-        if (!this.state.message) {
+        if (this.state.message.trim() === '') {
             btnClass += 'emptyInput ';
             clickable = false;
         }
@@ -82,7 +95,8 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
         return (
             <div className="InputArea">
                 <input type={'text'} value={this.state.message} placeholder={'הקלד הודעה כאן...'} className={'input'} onChange={this.updateMessage} ref={this.inputRef} onKeyUp={this.addMessageViaEnter}/>
-                <MyButton callbackFunc={this.addMessageToBoard} contentSTR={'Send'} className={btnClass} clickAble={clickable}/>
+                <MyButton callbackFunc={this.addMessageToBoard} contentSTR={'Send'} className={btnClass} disabled={!clickable}/>
+                <MyButton callbackFunc={this.clearMessage} contentSTR={'X'} className={btnClass} disabled={!clickable}/>
             </div>
         );
     }

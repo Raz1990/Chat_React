@@ -12,7 +12,7 @@ class db {
     constructor(){}
 
     static getAllEntities() {
-        let entityArray : any[] = [];
+        let entityArray : ICanChat[] = [];
 
         entityArray = entityArray.concat(db.groups).concat(db.users);
 

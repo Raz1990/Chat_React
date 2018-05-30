@@ -21,8 +21,8 @@ class App extends React.Component<IAppProps,any> {
 
         this.state = {
             currentUser: null,
-            username: '',
-            password: ''
+            username: 'Raz',
+            password: 'rrr'
         };
 
         StateStore.getInstance().set('currentUser', this.state.currentUser);
