@@ -9,12 +9,14 @@ import {User} from './../Classess/User';
 import StateStore from "../State/StateStore";
 import ICanChat from "../Interfaces/ChatEntity";
 
+import {MyFunctions} from './../Classess/UsefullFunctions';
+
 interface IRightProps {
 }
 
 interface IRightSTATE {
     currentUser : User
-    inChatWith : ICanChat
+    inChatWith : ICanChat | null
 }
 
 class RightArea extends React.Component<IRightProps,IRightSTATE> {
@@ -37,6 +39,15 @@ class RightArea extends React.Component<IRightProps,IRightSTATE> {
             });
         });
     }
+
+    removeActive = () => {
+        const myFuncs = new MyFunctions();
+        myFuncs.removeActive();
+
+        this.setState({
+            inChatWith : null
+        });
+    };
 
     public render() {
 

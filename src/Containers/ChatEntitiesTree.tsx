@@ -92,7 +92,7 @@ class ChatEntitiesTree extends React.Component<ITreeProps,ITreeState> {
 
             //if it's a group with items in it
             if (item.getItems().length > 0) {
-                this.createListItems(item.getItems(), liList,repeatSpaces + 10, items.length + idValue, true, item.getName().replace(' ', '_'));
+                this.createListItems(item.getItems(), liList,repeatSpaces + 15, items.length + idValue, true, item.getName().replace(' ', '_'));
             }
 
             idValue++;
@@ -114,11 +114,11 @@ class ChatEntitiesTree extends React.Component<ITreeProps,ITreeState> {
     public render() {
 
         return (
-            <div className={'left'} tabIndex={0} ref={this.ulTree}>
+            <div className={'left'}>
 
                 <Header/>
 
-                <ul className="tree">
+                <ul className="tree" tabIndex={0} ref={this.ulTree}>
 
                     {this.createListItems(this.state.entities)}
 

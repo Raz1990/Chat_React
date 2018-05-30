@@ -40,6 +40,8 @@ html, body, #root, #toor {
 .left {
   width: 50%;
   border-right: 1px solid black;
+    display: flex;
+    flex-direction: column;
 }
 
 .right {
@@ -73,6 +75,7 @@ h1.RightArea-h1{
   margin: 0;
   list-style: none;
   outline: none;
+    flex-grow: 1;
 }
 
 .InputArea {
@@ -87,6 +90,7 @@ h1.RightArea-h1{
 .InputArea input{
     flex-grow: 1;
     border-radius: 50px;
+    outline: none;
 }
 
 .input {
@@ -96,6 +100,7 @@ h1.RightArea-h1{
 
 li {
     user-select: none;
+    border: 0.5px solid;
 }
 
 .group {
@@ -111,7 +116,7 @@ li {
 }
 
 .active {
-  background-color: ButtonHighlight;
+  background-color: ButtonHighlight !important;
 }
 
 .speechWrapper {
@@ -175,4 +180,12 @@ li {
 .fullInput {
     color:white;
     background-color: green;
+}
+
+.user.childElement {
+    background-color: yellow;
+}
+
+.group.childElement {
+    background-color: #89f98b;
 }

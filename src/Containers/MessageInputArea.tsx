@@ -48,8 +48,13 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
         let currentState = StateStore.getInstance();
         let currentUser = currentState.get('currentUser');
         let receiver = currentState.get('inChatWith');
+        let message = this.state.message;
 
-        db.addMessageToAConversation(currentUser, receiver, this.state.message, moment().format("HH:mm:ss"));
+        if (receiver.getType() === 'group') {
+            message = currentUser.getName() + ': ' + message;
+        }
+
+        db.addMessageToAConversation(currentUser, receiver, message, moment().format("HH:mm:ss"));
 
         StateStore.getInstance().onStoreChanged();
     };

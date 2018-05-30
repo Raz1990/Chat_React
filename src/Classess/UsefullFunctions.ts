@@ -4,7 +4,7 @@ import {db} from './../Database/db';
 export class MyFunctions {
 
     //gets an element and gives it the "active" class
-    makeActive(element: any) {
+    makeActive = (element: any) => {
 
         let workingElement = element.target;
 
@@ -12,11 +12,8 @@ export class MyFunctions {
             workingElement = element;
         }
 
-        //remove active status from any previous active
-        let currentlyActive = document.getElementsByClassName('active');
-        if (currentlyActive.length > 0) {
-            currentlyActive[0].classList.toggle('active');
-        }
+        this.removeActive();
+
         //add the active status to the selected element
         workingElement.classList.toggle('active');
 
@@ -24,6 +21,14 @@ export class MyFunctions {
         let chattingWith = db.getChatEntity(workingElement.innerText);
 
         stateStore.set('inChatWith', chattingWith);
+    };
+
+    removeActive(){
+        //remove active status from any previous active
+        let currentlyActive = document.getElementsByClassName('active');
+        if (currentlyActive.length > 0) {
+            currentlyActive[0].classList.toggle('active');
+        }
     }
 
     //gets an element and expands / collapses all of its children (if have any)
