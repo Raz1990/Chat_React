@@ -41,7 +41,7 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
     };
 
     addMessageToBoard = () => {
-        if (this.state.message.trim() === ''){
+        if (this.state.message.trimLeft() === ''){
             this.setState({
                 message: ''
             });
@@ -83,7 +83,7 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
         let btnClass = 'input ';
         let clickable = true;
 
-        if (this.state.message.trim() === '') {
+        if (this.state.message.trimLeft() === '') {
             btnClass += 'emptyInput ';
             clickable = false;
         }

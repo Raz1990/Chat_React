@@ -123,25 +123,27 @@ export class TempData {
         }
     }
 
-    static AIReply(receiver:string){
-        switch (receiver) {
-            case 'Raz':
-                return 'מה הקטע לדבר עם עצמך?';
-            case 'Moshe':
-                return 'הכל חרטא ברטא תאמין לי';
-            case 'Itay':
-                return 'עכשיו תוסיף עוד 100 ש"ח';
-            case 'Evgeni':
-                return 'יאללה, לאכול';
-            case 'Ori':
-                return 'מגניב!';
-            case 'Yuval':
-                return 'עוגי שיגעוגי משגע ת\'עולם';
-            case 'Friends':
-                return TempData.Itay.getName() + ': עזבו, יותר קראק בשבילי';
-        }
+    static replies = {};
 
-        return '';
+    static generateMockUpAnswers(){
+        TempData.replies['Raz'] = ['מה הקטע לדבר עם עצמך?', 'מדבר עם עצמך? באמת?', 'רפלקציה עצמית זה מגניב', 'מה נסגר לדבר עם עצמך?', 'הד הד הדדד', 'המחלקה הפסיכיאטרית בכיוון ההוא'];
+        TempData.replies['Moshe'] = ['הכל חרטא ברטא תאמין לי','יש לי נוד שמביא צ\'ילדרן של נאד','אמן'];
+        TempData.replies['Itay'] = ['עכשיו תוסיף עוד 100 ש"ח','זה גורם למיינד פאק רציני','מארוול וDC הם אחלה'];
+        TempData.replies['Evgeni'] = ['יאללה לאכול','משהו פה לא מסתדר לי','צאו להפסקה'];
+        TempData.replies['Ori'] = ['מגניב!','אז מה למדנו היום?','זה אוכל את זה?'];
+        TempData.replies['Yuval'] = ['עוגי שיגעוגי','פאו צ\'יקא-וואו-וואו','קמהאמאה!!!','HERO   ore o tataeru koe ya   kassai nante   hoshikute wa nai sa!!!','Ka ka ka ka kachi daze!!!','Omae Wa Mou Shindeiru!'];
+        TempData.replies['Friends'] = [TempData.Itay.getName() + ': טוב לא חשוב הקראק נשאר אצלי', TempData.Moshe.getName() + ': קראק זה חרטא ברטא', TempData.Itay.getName() + ': אתם מפספסים אחלה קראק'];
+    }
+
+    static _a = TempData.generateMockUpAnswers();
+
+    static AIReply(receiver:string){
+
+        const rand = Math.floor(Math.random() * (TempData.replies[receiver].length)) ;
+
+        const reply = TempData.replies[receiver][rand];
+
+        return reply;
     }
 
     static getConversation(sender: ICanChat, receiver: ICanChat){
