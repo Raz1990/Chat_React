@@ -76,6 +76,7 @@ h1.RightArea-h1{
   list-style: none;
   outline: none;
     flex-grow: 1;
+    overflow-y: scroll;
 }
 
 .InputArea {

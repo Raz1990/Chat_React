@@ -58,7 +58,7 @@ class ChatEntitiesTree extends React.Component<ITreeProps,ITreeState> {
         li.innerHTML = item.getName();
         li.className += item.getType() + ' ' + itemNameForClass + ' ';
         li.id = idValue.toString();
-        li.style = { 'textIndent' : repeatSpaces +'px'};
+        li.style = { 'textIndent' : repeatSpaces +'em'};
 
         if (childElement) {
             li.className += 'childElement childOf_' + parentLiClassName + ' isHidden ';
@@ -92,7 +92,7 @@ class ChatEntitiesTree extends React.Component<ITreeProps,ITreeState> {
 
             //if it's a group with items in it
             if (item.getItems().length > 0) {
-                this.createListItems(item.getItems(), liList,repeatSpaces + 15, items.length + idValue, true, item.getName().replace(' ', '_'));
+                this.createListItems(item.getItems(), liList,repeatSpaces + 1, items.length + idValue, true, item.getName().replace(' ', '_'));
             }
 
             idValue++;
