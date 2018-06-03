@@ -98,27 +98,31 @@ export class TempData {
             TempData.conversations[sender.getName()] = {};
         }
 
+        //will be useful in the future when getting info from the db
+        let bubbleId = 0;
+
         //if its the first time the sender sent a message to a specific entity
         if (!TempData.conversations[sender.getName()][receiver.getName()]) {
             TempData.conversations[sender.getName()][receiver.getName()] = {val:[]};
         }
+        else {
+            const convo = TempData.conversations[sender.getName()][receiver.getName()].val;
+            bubbleId = convo[convo.length-1].id + 1;
+        }
 
         //add the "bubble" to the correct conversation
-        TempData.conversations[sender.getName()][receiver.getName()].val.push(TempData.newBubble(sender, receiver, content, time));
+        TempData.conversations[sender.getName()][receiver.getName()].val.push(TempData.newBubble(bubbleId, sender, receiver, content, time));
 
         //an echo back when talking "live"
         if (real) {
-            if (receiver.getType() === 'user') {
-                //temporary check if its the same fag talking to himself
-                if (sender === receiver) {
-                    TempData.conversations[sender.getName()][receiver.getName()].val.push(TempData.newBubble(sender, receiver, TempData.AIReply(receiver.getName()), time));
-                }
-                else {
-                    TempData.addConversation(receiver, sender, TempData.AIReply(receiver.getName()), time);
-                }
+            //temporary check if its the same fag talking to himself
+            if (sender === receiver) {
+                TempData.conversations[sender.getName()][receiver.getName()].val.push(TempData.newBubble(bubbleId, sender, receiver, TempData.AIReply(receiver.getName()), time));
             }
             else {
-                TempData.addConversation(TempData.Itay, receiver, TempData.AIReply(receiver.getName()), time);
+                // currently sticks the convo to another sender, to show it as other.
+                // in reality, it will get the real sender in the server
+                TempData.addConversation(TempData.allUsers[1], receiver, TempData.AIReply(receiver.getName()), time);
             }
         }
     }
@@ -126,20 +130,20 @@ export class TempData {
     static replies = {};
 
     static generateMockUpAnswers(){
-        TempData.replies['Raz'] = ['מה הקטע לדבר עם עצמך?', 'מדבר עם עצמך? באמת?', 'רפלקציה עצמית זה מגניב', 'מה נסגר לדבר עם עצמך?', 'הד הד הדדד', 'המחלקה הפסיכיאטרית בכיוון ההוא'];
-        TempData.replies['Moshe'] = ['הכל חרטא ברטא תאמין לי','יש לי נוד שמביא צ\'ילדרן של נאד','אמן'];
-        TempData.replies['Itay'] = ['עכשיו תוסיף עוד 100 ש"ח','זה גורם למיינד פאק רציני','מארוול וDC הם אחלה'];
+        TempData.replies['Raz'] = ['פיצה ויומנגס וצ\'יפס','מה הקטע לדבר עם עצמך?', 'מדבר עם עצמך? באמת?', 'רפלקציה עצמית זה מגניב', 'מה נסגר לדבר עם עצמך?', 'הד הד הדדד', 'המחלקה הפסיכיאטרית בכיוון ההוא'];
+        TempData.replies['Moshe'] = ['הכל חרטא ברטא תאמין לי','יש לי נוד שמביא צ\'ילדרן של נאד','אמן','לא אכפת לי, אתה צדיק'];
+        TempData.replies['Itay'] = ['עכשיו תוסיף עוד 100 ש"ח','זה גורם למיינד פאק רציני','מארוול וDC הם אחלה','חם פה אש','אני שולח את זה לAPI חיצוני','אחלה AI לתשובות עשית'];
         TempData.replies['Evgeni'] = ['יאללה לאכול','משהו פה לא מסתדר לי','צאו להפסקה'];
-        TempData.replies['Ori'] = ['מגניב!','אז מה למדנו היום?','זה אוכל את זה?'];
+        TempData.replies['Ori'] = ['מגניב!','אז מה למדנו היום?','זה אוכל את זה?', 'נחמד','אני עושה npm i npm start וזהו'];
         TempData.replies['Yuval'] = ['עוגי שיגעוגי','פאו צ\'יקא-וואו-וואו','קמהאמאה!!!','HERO   ore o tataeru koe ya   kassai nante   hoshikute wa nai sa!!!','Ka ka ka ka kachi daze!!!','Omae Wa Mou Shindeiru!'];
-        TempData.replies['Friends'] = [TempData.Itay.getName() + ': טוב לא חשוב הקראק נשאר אצלי', TempData.Moshe.getName() + ': קראק זה חרטא ברטא', TempData.Itay.getName() + ': אתם מפספסים אחלה קראק'];
+        TempData.replies['Friends'] = [TempData.Itay.getName() + ': טוב לא חשוב הקראק נשאר אצלי', TempData.Moshe.getName() + ': קראק זה חרטא ברטא', TempData.Itay.getName() + ': אתם מפספסים אחלה קראק', TempData.Moshe.getName() + ': מישהו יכול לעזור לי עם הנוד שלי?', TempData.Itay.getName() + ': חברים חפרתם'];
     }
 
     static _a = TempData.generateMockUpAnswers();
 
     static AIReply(receiver:string){
 
-        const rand = Math.floor(Math.random() * (TempData.replies[receiver].length)) ;
+        const rand = Math.floor(Math.random() * TempData.replies[receiver].length);
 
         const reply = TempData.replies[receiver][rand];
 
@@ -191,8 +195,9 @@ export class TempData {
         return 0;
     }
 
-    static newBubble(sender: ICanChat, reciever: ICanChat, content: string, time: string){
+    static newBubble(bubbleId: Number, sender: ICanChat, reciever: ICanChat, content: string, time: string){
         return {
+            id : bubbleId,
             content: content,
             sender: sender,
             receiver: reciever,

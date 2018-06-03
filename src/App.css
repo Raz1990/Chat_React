@@ -196,3 +196,7 @@ li {
 .group.childElement {
     background-color: #89f98b;
 }
+
+textarea {
+    resize: none;
+}

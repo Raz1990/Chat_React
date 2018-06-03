@@ -67,6 +67,10 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
     };
 
     addMessageViaEnter = (key : any) => {
+        // if I ever implement textarea instead of input
+        // if (key.shiftKey) {
+        //     return;
+        // }
         if (key.key === 'Enter') {
             this.addMessageToBoard();
         }
@@ -94,6 +98,7 @@ class MessageInputArea extends React.Component<{},IMessageInputAreaState> {
 
         return (
             <div className="InputArea">
+                {/*<textarea value={this.state.message} placeholder={'הקלד הודעה כאן...'} className={'input'} onChange={this.updateMessage} ref={this.inputRef} onKeyPress={this.addMessageViaEnter} />*/}
                 <input type={'text'} value={this.state.message} placeholder={'הקלד הודעה כאן...'} className={'input'} onChange={this.updateMessage} ref={this.inputRef} onKeyUp={this.addMessageViaEnter}/>
                 <MyButton callbackFunc={this.addMessageToBoard} contentSTR={'Send'} className={btnClass} disabled={!clickable}/>
                 <MyButton callbackFunc={this.clearMessage} contentSTR={'X'} className={btnClass} disabled={!clickable}/>
