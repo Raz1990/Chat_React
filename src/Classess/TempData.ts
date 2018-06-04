@@ -115,13 +115,12 @@ export class TempData {
 
         //an echo back when talking "live"
         if (real) {
-            //temporary check if its the same fag talking to himself
-            if (sender === receiver) {
-                TempData.conversations[sender.getName()][receiver.getName()].val.push(TempData.newBubble(bubbleId, sender, receiver, TempData.AIReply(receiver.getName()), time));
+            if (receiver.getType() === 'group') {
+                // currently sticks the convo to a static user,
+                // in reality it will get the real sending user from the server
+                TempData.addConversation(this.Itay, receiver, TempData.AIReply(receiver.getName()), time);
             }
             else {
-                // currently sticks the convo to another sender, to show it as other.
-                // in reality, it will get the real sender in the server
                 TempData.addConversation(receiver, sender, TempData.AIReply(receiver.getName()), time);
             }
         }
@@ -137,6 +136,7 @@ export class TempData {
         TempData.replies['Ori'] = ['מגניב!','אז מה למדנו היום?','זה אוכל את זה?', 'נחמד','אני עושה npm i npm start וזהו'];
         TempData.replies['Yuval'] = ['עוגי שיגעוגי','פאו צ\'יקא-וואו-וואו','קמהאמאה!!!','HERO   ore o tataeru koe ya   kassai nante   hoshikute wa nai sa!!!','Ka ka ka ka kachi daze!!!','Omae Wa Mou Shindeiru!'];
         TempData.replies['Friends'] = [TempData.Itay.getName() + ': טוב לא חשוב הקראק נשאר אצלי', TempData.Moshe.getName() + ': קראק זה חרטא ברטא', TempData.Itay.getName() + ': אתם מפספסים אחלה קראק', TempData.Moshe.getName() + ': מישהו יכול לעזור לי עם הנוד שלי?', TempData.Itay.getName() + ': חברים חפרתם'];
+        TempData.replies['Best Friends'] = ['תשובה גנרית'];
     }
 
     static _a = TempData.generateMockUpAnswers();

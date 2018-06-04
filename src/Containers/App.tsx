@@ -26,10 +26,6 @@ class App extends React.Component<IAppProps,any> {
         };
 
         StateStore.getInstance().set('currentUser', this.state.currentUser);
-
-        StateStore.getInstance().subscribe(()=>{
-            this.forceUpdate();
-        });
     }
 
     inputChangedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,21 +48,13 @@ class App extends React.Component<IAppProps,any> {
         }
     };
 
+    escape = () => {
+      alert("There is no escape...");
+    };
+
     public render() {
-        //if a user is logged in
-        if (this.state.currentUser) {
-            return (
-                <div id='toor'>
-                    <ChatEntitiesTree/>
-
-                    <RightArea/>
-                </div>
-            );
-        }
-
         const canSubmit = !!this.state.username && !!this.state.password;
-
-        return (
+        const modal = (
             <Modal style={styles.modal}>
                 <p style={styles.p}>
                     <label style={styles.label} htmlFor="username">Username</label>
@@ -76,8 +64,30 @@ class App extends React.Component<IAppProps,any> {
                     <label style={styles.label} htmlFor="password">Password</label>
                     <input style={styles.input} type="password" name="password" value={this.state.password} onChange={this.inputChangedHandler} />
                 </p>
-                <button style={canSubmit ? styles.button : styles.buttonDisabled} disabled={!canSubmit} onClick={this.submit}>Submit</button>
+                <button style={canSubmit ? styles.button : styles.buttonDisabled} disabled={!canSubmit} onClick={this.submit}>Login</button>
+                <button style={canSubmit ? styles.button : styles.buttonDisabled} disabled={!canSubmit} onClick={this.escape}>Escape</button>
             </Modal>
+        );
+
+        //if a user is logged in
+        if (this.state.currentUser) {
+            return (
+                <div id='toor'>
+                    <ChatEntitiesTree/>
+                    <RightArea/>
+                </div>
+            );
+        }
+
+        //user is not logged in
+        return (
+            <div id='toor'>
+
+                {!this.state.currentUser ? modal : <div/>}
+
+                <ChatEntitiesTree/>
+                <RightArea/>
+            </div>
         );
     }
 }

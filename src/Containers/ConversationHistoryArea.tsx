@@ -69,10 +69,13 @@ class ConversationHistoryArea extends React.Component <IConvoProps,IConvoState> 
             )
             );
 
-        let h4Text = moment().format('MMMM Do YYYY');
+        let h4Text;
 
         if (bubbles.length < 1) {
             h4Text = 'אין בושה - החל שיחה';
+        }
+        else {
+            h4Text = moment().format('MMMM Do YYYY');
         }
 
         return (

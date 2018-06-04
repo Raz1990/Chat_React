@@ -23,6 +23,7 @@ class RightArea extends React.Component<IRightProps,IRightSTATE> {
 
     currentUser : User;
     inChatWith: ICanChat;
+    listenerIndex: number;
 
     constructor(props: IRightProps){
         super(props);
@@ -32,12 +33,16 @@ class RightArea extends React.Component<IRightProps,IRightSTATE> {
             inChatWith: StateStore.getInstance().get('inChatWith'),
         };
 
-        StateStore.getInstance().subscribe(()=>{
+        this.listenerIndex = StateStore.getInstance().subscribe(()=>{
             this.setState({
                 currentUser : StateStore.getInstance().get('currentUser'),
                 inChatWith : StateStore.getInstance().get('inChatWith')
             });
         });
+    }
+
+    componentWillUnmount(){
+        //StateStore.getInstance().unsubscribe(this.listenerIndex);
     }
 
     removeActive = () => {
@@ -64,10 +69,16 @@ class RightArea extends React.Component<IRightProps,IRightSTATE> {
             );
         }
 
+        let noChatText = "";
+
+        if (this.currentUser){
+            noChatText = "Select someone to start a chat!";
+        }
+
         //if not chatting with anyone
         return  (
                 <div className="right">
-                <h1 className="RightArea-h1"> Select someone to start a chat! </h1>
+                <h1 className="RightArea-h1"> {noChatText} </h1>
                 </div>
         );
     }

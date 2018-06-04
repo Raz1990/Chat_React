@@ -15,6 +15,8 @@ interface IHeaderPROPS {
 
 class Header extends React.Component<IHeaderPROPS,IHeaderSTATE> {
 
+    listenerIndex: number;
+
     constructor(props: IHeaderPROPS){
         super(props);
 
@@ -23,17 +25,26 @@ class Header extends React.Component<IHeaderPROPS,IHeaderSTATE> {
             inChatWith : StateStore.getInstance().get('inChatWith')
         };
 
-        StateStore.getInstance().subscribe(()=>{
+        this.listenerIndex = StateStore.getInstance().subscribe(()=>{
             this.setState({
                 currentUser : StateStore.getInstance().get('currentUser'),
                 inChatWith : StateStore.getInstance().get('inChatWith')
             });
         });
+    }
 
+    componentWillUnmount(){
+        //StateStore.getInstance().unsubscribe(this.listenerIndex);
     }
 
     public render() {
-        let text = this.state.currentUser.getName();
+
+        let text = "";
+
+        if (this.state.currentUser){
+            text = this.state.currentUser.getName();
+        }
+
         if (this.state.inChatWith) {
             if ( this.state.inChatWith.getType() == 'user' ) {
                 text += ' chatting with ';

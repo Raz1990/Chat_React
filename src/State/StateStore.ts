@@ -29,7 +29,11 @@ class StateStore implements IStateSore{
     };
 
     subscribe(listener: any){
-        this.listeners.push(listener);
+        return this.listeners.push(listener);
+    }
+
+    unsubscribe(index: number){
+        this.listeners.splice(index,1);
     }
 
     set(key:string, val:any){

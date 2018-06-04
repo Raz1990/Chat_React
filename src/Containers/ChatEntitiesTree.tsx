@@ -31,11 +31,6 @@ class ChatEntitiesTree extends React.Component<ITreeProps,ITreeState> {
         this.state = {
             entities : StateStore.getInstance().get('allEntities')
         };
-
-        StateStore.getInstance().subscribe(()=>{
-            this.forceUpdate();
-        });
-
     }
 
     singleLiCreate(item : ICanChat, idValue? : number, childElement? : any, parentLiClassName? : string, repeatSpaces? : number){
@@ -113,6 +108,12 @@ class ChatEntitiesTree extends React.Component<ITreeProps,ITreeState> {
 
     public render() {
 
+        let entitiesTree = [];
+
+        if (this.currentUser){
+            entitiesTree = this.createListItems(this.state.entities);
+        }
+
         return (
             <div className={'left'}>
 
@@ -120,7 +121,7 @@ class ChatEntitiesTree extends React.Component<ITreeProps,ITreeState> {
 
                 <ul className="tree" tabIndex={0} ref={this.ulTree}>
 
-                    {this.createListItems(this.state.entities)}
+                    {entitiesTree}
 
                 </ul>
 
