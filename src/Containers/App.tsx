@@ -68,18 +68,7 @@ class App extends React.Component<IAppProps,any> {
                 <button style={canSubmit ? styles.button : styles.buttonDisabled} disabled={!canSubmit} onClick={this.escape}>Escape</button>
             </Modal>
         );
-
-        //if a user is logged in
-        if (this.state.currentUser) {
-            return (
-                <div id='toor'>
-                    <ChatEntitiesTree/>
-                    <RightArea/>
-                </div>
-            );
-        }
-
-        //user is not logged in
+        
         return (
             <div id='toor'>
 

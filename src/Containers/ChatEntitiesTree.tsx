@@ -10,6 +10,7 @@ import {MyFunctions} from './../Classess/UsefullFunctions';
 import {Group} from "../Classess/Group";
 
 interface ITreeState {
+    currentUser : User;
     entities: ICanChat[];
 }
 
@@ -18,19 +19,25 @@ interface ITreeProps {
 
 class ChatEntitiesTree extends React.Component<ITreeProps,ITreeState> {
 
-    currentUser : User;
     myFuncs = new MyFunctions();
     ulTree: any;
 
     constructor(props: ITreeProps){
         super(props);
 
-        this.currentUser = StateStore.getInstance().get('currentUser');
         this.ulTree = React.createRef();
 
         this.state = {
+            currentUser : StateStore.getInstance().get('currentUser'),
             entities : StateStore.getInstance().get('allEntities')
         };
+
+        StateStore.getInstance().subscribe(()=>{
+            this.setState({
+                currentUser : StateStore.getInstance().get('currentUser'),
+                entities : StateStore.getInstance().get('allEntities')
+            });
+        });
     }
 
     singleLiCreate(item : ICanChat, idValue? : number, childElement? : any, parentLiClassName? : string, repeatSpaces? : number){
@@ -110,7 +117,7 @@ class ChatEntitiesTree extends React.Component<ITreeProps,ITreeState> {
 
         let entitiesTree = [];
 
-        if (this.currentUser){
+        if (this.state.currentUser){
             entitiesTree = this.createListItems(this.state.entities);
         }
 
