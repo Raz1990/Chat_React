@@ -2,22 +2,15 @@
 
 import * as React from 'react';
 import {User} from './../Classess/User';
-import ICanEntity from './../Interfaces/ChatEntity';
 import SpeechBubbleContent from './../Components/SpeechBubbleContent';
 import StateStore from "../State/StateStore";
+import ISpeechBubble from "../Interfaces/SpeechBubble";
 
-interface ISpeechBubblePROPS {
-    content: string,
-    sender: User,
-    receiver: ICanEntity,
-    timeSent: string,
-}
-
-class SpeechBubble extends React.Component<ISpeechBubblePROPS,{}> {
+class SpeechBubble extends React.Component<ISpeechBubble,{}> {
 
     currentUser : User;
 
-    constructor(props: ISpeechBubblePROPS) {
+    constructor(props: ISpeechBubble) {
         super(props);
 
         this.currentUser = StateStore.getInstance().get('currentUser');

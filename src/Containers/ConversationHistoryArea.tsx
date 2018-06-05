@@ -5,21 +5,14 @@ import StateStore from './../State/StateStore'
 //components imports
 import SpeechBubbleWrapper from './SpeechBubbleWrapper';
 import {User} from './../Classess/User';
-import IChatEntity from "../Interfaces/ChatEntity";
 import {db} from './../Database/db';
+import ISpeechBubble from "../Interfaces/SpeechBubble";
 
 interface IConvoProps {
 }
 
 interface IConvoState {
     speechBubbles : ISpeechBubble[]
-}
-
-interface ISpeechBubble {
-    content: string,
-    sender: IChatEntity,
-    receiver: IChatEntity,
-    timeSent: string,
 }
 
 class ConversationHistoryArea extends React.Component <IConvoProps,IConvoState> {
