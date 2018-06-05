@@ -64,11 +64,13 @@ class App extends React.Component<IAppProps,any> {
                     <label style={styles.label} htmlFor="password">Password</label>
                     <input style={styles.input} type="password" name="password" value={this.state.password} onChange={this.inputChangedHandler} />
                 </p>
-                <button style={canSubmit ? styles.button : styles.buttonDisabled} disabled={!canSubmit} onClick={this.submit}>Login</button>
-                <button style={canSubmit ? styles.button : styles.buttonDisabled} disabled={!canSubmit} onClick={this.escape}>Escape</button>
+                <div style={styles.div}>
+                    <button style={canSubmit ? styles.button : styles.buttonDisabled} disabled={!canSubmit} onClick={this.submit}>Login</button>
+                    <button style={canSubmit ? styles.button : styles.buttonDisabled} disabled={!canSubmit} onClick={this.escape}>Escape</button>
+                </div>
             </Modal>
         );
-        
+
         return (
             <div id='toor'>
 
@@ -99,8 +101,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     },
     button: {
         background: '#86BB71',
-        color: 'white'
+        color: 'white',
+        padding: '5px',
+        marginRight: '10px',
+        marginLeft: '10px'
     },
+    div: {
+        textAlign: 'center'
+    }
 };
 styles.buttonDisabled = {
     ...styles.button,
