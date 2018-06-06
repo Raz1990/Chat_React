@@ -21,8 +21,6 @@ interface IRightSTATE {
 
 class RightArea extends React.Component<IRightProps,IRightSTATE> {
 
-    currentUser : User;
-    inChatWith: ICanChat;
     listenerIndex: number;
 
     constructor(props: IRightProps){
@@ -71,7 +69,7 @@ class RightArea extends React.Component<IRightProps,IRightSTATE> {
 
         let noChatText = "";
 
-        if (this.currentUser){
+        if (this.state.currentUser){
             noChatText = "Select someone to start a chat!";
         }
 

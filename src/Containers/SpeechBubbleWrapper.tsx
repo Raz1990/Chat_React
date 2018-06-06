@@ -3,22 +3,14 @@
 import * as React from 'react';
 import SpeechBubble from './../Components/SpeechBubble';
 import {User} from './../Classess/User';
-import IChatEntity from "../Interfaces/ChatEntity";
 import StateStore from "../State/StateStore";
+import ISpeechBubble from "../Interfaces/SpeechBubble";
 
-
-interface ISpeechWrapperPROPS {
-    content: string,
-    sender: User,
-    receiver: IChatEntity,
-    timeSent: string,
-}
-
-class SpeechBubbleWrapper extends React.Component<ISpeechWrapperPROPS,{}> {
+class SpeechBubbleWrapper extends React.Component<ISpeechBubble,{}> {
 
     currentUser : User;
 
-    constructor(props: ISpeechWrapperPROPS) {
+    constructor(props: ISpeechBubble) {
         super(props);
 
         this.currentUser = StateStore.getInstance().get('currentUser');

@@ -25,7 +25,6 @@ class ConversationHistoryArea extends React.Component <IConvoProps,IConvoState> 
         super(props);
 
         this.speechBlock = React.createRef();
-
         this.currentUser = this.stateStore.get('currentUser');
 
         this.state = {
